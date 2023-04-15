@@ -1,0 +1,264 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Parameters</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-27"><meta name="DC.source" content="Parameters.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Assumptions *********************************</span>
+<span class="comment">% - SLUF ( L = W )</span>
+<span class="comment">% - STD ATM @ 1500m</span>
+<span class="comment">%</span>
+
+<span class="comment">% Requirements ********************************</span>
+R_req = [125,175];      <span class="comment">% (m) Min - Max of glider range</span>
+V_Rreq = [7, 12];       <span class="comment">% (m/s) minimum velocity for range</span>
+E_req = [13, 20];       <span class="comment">% (s) maximum time of flight</span>
+theta_req = [10, 20];   <span class="comment">% (deg) Elevetor pitch control</span>
+vol_HT = [0.3,0.6];     <span class="comment">% Volume coefficient of horizontal tail</span>
+vol_VT = [0.02,0.05];   <span class="comment">% Volume coefficient of vertical tail</span>
+SM_req = [0.15,0.25];       <span class="comment">% Longitudinal Stability</span>
+
+<span class="comment">% Constants ***********************************</span>
+chord = 0.18;       <span class="comment">% (m) Depth of the wing</span>
+<span class="comment">%S_wet = 0.49;       %((m^2) (2*S_w) + (2*S_ht) + (2*S_vt) + S_f;</span>
+b = 1;            <span class="comment">% (m) Length of wing span</span>
+S_ht = 0.036;        <span class="comment">% (m^2) Surface area of horizontal tail</span>
+S_vt = 2*0.007;        <span class="comment">% (m^2) Surface area of vertical tail</span>
+S_ref = b*chord;    <span class="comment">% (m^2) Reference area</span>
+S_f = 0.033;        <span class="comment">% (m^2) Fuselage area</span>
+S_wet = 2*S_ref + 2*S_ht + 2*S_vt + S_f;
+AR = (b^2)/S_ref;
+
+<span class="comment">% e0 = 1.78*(1 - (0.045*(AR^0.68))) - 0.64;           % Efficiency factor</span>
+e0 = 0.7;
+h = 17.5;           <span class="comment">% (m) Height where a glider is thrown at</span>
+rho = 1.0581;       <span class="comment">% (kg/m^3) At an altitude of 1500m</span>
+C_fe = 0.003;       <span class="comment">% Equivalent coefficient of skin friction</span>
+ws = 0.295*9.81;    <span class="comment">% (N/m^2) Dollar Tree Foam's approximate specific weight</span>
+W_cam = 0.16*9.81;  <span class="comment">% (N) Weight of camera</span>
+CL_max = 0.8;       <span class="comment">% Maximum lift coefficient from the data file</span>
+
+W_TO = ws*S_wet + W_cam; <span class="comment">%(S_f+S_w+S_ht+S_vt)</span>
+k = 1/(AR*pi*e0);
+wing_load = W_TO/S_ref;
+
+<span class="comment">%**********************************************</span>
+<span class="comment">% CD &amp; CL</span>
+CD0 = C_fe*(S_wet/S_ref);       <span class="comment">% Paracite drag</span>
+CD_R = 2*CD0;                 <span class="comment">% Minimum drag polar</span>
+CL_R = sqrt(CD0/k);           <span class="comment">% Maximum CL : CD0 = kCL^2</span>
+ratio_LD_R = CL_R/CD_R;       <span class="comment">% Ratio of lift to drag</span>
+V_stall = sqrt(2*wing_load/(CL_max*rho)); <span class="comment">% Stall velocity</span>
+
+<span class="comment">% Range &amp; Velocity at the R_max</span>
+R = h*ratio_LD_R;
+V_R = sqrt(2*wing_load/(rho*CL_R));   <span class="comment">% Velocity for the maximum range</span>
+
+<span class="comment">% Endurance &amp; Velocity at the E_min</span>
+CL_E = sqrt(3*CD0/k);         <span class="comment">% Minimim CL to get minimum sink velocity: 3CD0 = kCL^2</span>
+CD_E = 4*CD0;
+ratio_LD_E = CL_R/CD_E;
+theta_E = (1/ratio_LD_R);
+V_sink = V_R*sin(theta_E);
+V_E = sqrt(2*wing_load/(rho*CL_E));
+E = h/V_sink;
+
+theta_deg = theta_E*180/pi;
+<span class="comment">%</span>
+<span class="comment">% for t = 0:E</span>
+<span class="comment">%     x = V_R*t;</span>
+<span class="comment">%     y = -V_sink*t + h;</span>
+<span class="comment">%     if y &gt;= 0</span>
+<span class="comment">%         figure(5)</span>
+<span class="comment">%         hold on</span>
+<span class="comment">%         plot(x,y,'ro');</span>
+<span class="comment">%         title('Flight Simulation Beased on Our Actual Design');</span>
+<span class="comment">%         xlabel('Displacement (m)');</span>
+<span class="comment">%         ylabel('Height (m)');</span>
+<span class="comment">%         axis([0 200 0 20]);</span>
+<span class="comment">%         drawnow</span>
+<span class="comment">%     else</span>
+<span class="comment">%         break;</span>
+<span class="comment">%     end</span>
+<span class="comment">%</span>
+<span class="comment">% end</span>
+
+<span class="comment">% Display key values</span>
+fprintf(<span class="string">'                Range:   %.1f m\n'</span>, R);
+fprintf(<span class="string">'             Ref Area:   %.2f m^2\n'</span>, S_ref);
+fprintf(<span class="string">'          Wetted Area:   %.2f m^2\n'</span>, S_wet);
+fprintf(<span class="string">'         Wing Loading:   %.1f\n'</span>, wing_load);
+fprintf(<span class="string">'         Aspect Ratio:   %.1f\n'</span>, AR);
+fprintf(<span class="string">'    L/D max for Range:   %.1f\n'</span>, ratio_LD_R);
+fprintf(<span class="string">'L/D max for Endurance:   %.1f\n'</span>, ratio_LD_E);
+fprintf(<span class="string">'   Velocity for Range:   %.1f m/s\n'</span>, V_R);
+fprintf(<span class="string">'            Endurance:   %.1f s\n'</span>, E);
+fprintf(<span class="string">'       Elevator Pitch:   %.1f deg\n'</span>, theta_deg);
+</pre><pre class="codeoutput">                Range:   337.4 m
+             Ref Area:   0.18 m^2
+          Wetted Area:   0.49 m^2
+         Wing Loading:   16.6
+         Aspect Ratio:   5.6
+    L/D max for Range:   19.3
+L/D max for Endurance:   9.6
+   Velocity for Range:   10.0 m/s
+            Endurance:   33.9 s
+       Elevator Pitch:   3.0 deg
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Assumptions *********************************
+% - SLUF ( L = W )
+% - STD ATM @ 1500m 
+% 
+
+% Requirements ********************************
+R_req = [125,175];      % (m) Min - Max of glider range
+V_Rreq = [7, 12];       % (m/s) minimum velocity for range
+E_req = [13, 20];       % (s) maximum time of flight
+theta_req = [10, 20];   % (deg) Elevetor pitch control
+vol_HT = [0.3,0.6];     % Volume coefficient of horizontal tail
+vol_VT = [0.02,0.05];   % Volume coefficient of vertical tail
+SM_req = [0.15,0.25];       % Longitudinal Stability
+
+% Constants ***********************************
+chord = 0.18;       % (m) Depth of the wing
+%S_wet = 0.49;       %((m^2) (2*S_w) + (2*S_ht) + (2*S_vt) + S_f;
+b = 1;            % (m) Length of wing span
+S_ht = 0.036;        % (m^2) Surface area of horizontal tail
+S_vt = 2*0.007;        % (m^2) Surface area of vertical tail
+S_ref = b*chord;    % (m^2) Reference area
+S_f = 0.033;        % (m^2) Fuselage area 
+S_wet = 2*S_ref + 2*S_ht + 2*S_vt + S_f;
+AR = (b^2)/S_ref;
+
+% e0 = 1.78*(1 - (0.045*(AR^0.68))) - 0.64;           % Efficiency factor
+e0 = 0.7;
+h = 17.5;           % (m) Height where a glider is thrown at 
+rho = 1.0581;       % (kg/m^3) At an altitude of 1500m
+C_fe = 0.003;       % Equivalent coefficient of skin friction
+ws = 0.295*9.81;    % (N/m^2) Dollar Tree Foam's approximate specific weight
+W_cam = 0.16*9.81;  % (N) Weight of camera
+CL_max = 0.8;       % Maximum lift coefficient from the data file
+
+W_TO = ws*S_wet + W_cam; %(S_f+S_w+S_ht+S_vt)
+k = 1/(AR*pi*e0);
+wing_load = W_TO/S_ref;
+
+%**********************************************
+% CD & CL
+CD0 = C_fe*(S_wet/S_ref);       % Paracite drag
+CD_R = 2*CD0;                 % Minimum drag polar
+CL_R = sqrt(CD0/k);           % Maximum CL : CD0 = kCL^2
+ratio_LD_R = CL_R/CD_R;       % Ratio of lift to drag 
+V_stall = sqrt(2*wing_load/(CL_max*rho)); % Stall velocity
+
+% Range & Velocity at the R_max
+R = h*ratio_LD_R;
+V_R = sqrt(2*wing_load/(rho*CL_R));   % Velocity for the maximum range
+
+% Endurance & Velocity at the E_min
+CL_E = sqrt(3*CD0/k);         % Minimim CL to get minimum sink velocity: 3CD0 = kCL^2
+CD_E = 4*CD0;
+ratio_LD_E = CL_R/CD_E;
+theta_E = (1/ratio_LD_R);
+V_sink = V_R*sin(theta_E);
+V_E = sqrt(2*wing_load/(rho*CL_E));
+E = h/V_sink;
+
+theta_deg = theta_E*180/pi;
+% 
+% for t = 0:E
+%     x = V_R*t;
+%     y = -V_sink*t + h;
+%     if y >= 0
+%         figure(5)
+%         hold on
+%         plot(x,y,'ro');
+%         title('Flight Simulation Beased on Our Actual Design');
+%         xlabel('Displacement (m)');
+%         ylabel('Height (m)');
+%         axis([0 200 0 20]);
+%         drawnow
+%     else 
+%         break;
+%     end
+%     
+% end
+
+% Display key values 
+fprintf('                Range:   %.1f m\n', R);
+fprintf('             Ref Area:   %.2f m^2\n', S_ref);
+fprintf('          Wetted Area:   %.2f m^2\n', S_wet);
+fprintf('         Wing Loading:   %.1f\n', wing_load);
+fprintf('         Aspect Ratio:   %.1f\n', AR);
+fprintf('    L/D max for Range:   %.1f\n', ratio_LD_R);
+fprintf('L/D max for Endurance:   %.1f\n', ratio_LD_E);
+fprintf('   Velocity for Range:   %.1f m/s\n', V_R);
+fprintf('            Endurance:   %.1f s\n', E);
+fprintf('       Elevator Pitch:   %.1f deg\n', theta_deg);
+
+##### SOURCE END #####
+--></body></html>
